@@ -8,6 +8,9 @@ on:
       - src/**.rs
       - .github/workflows/miri.yml
 
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   check:
     name: Miri
