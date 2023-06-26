@@ -12,7 +12,7 @@ Strings that are too large to store inline are stored on the heap, as a `CString
 pub fn from_str(str: &str) -> Result<Storage, NulError>
 ```
 
-Using this crate is implicitly assuming g that handling long strings “as slow as C” will be fast enough.
+Using this crate is implicitly assuming g that handling long strings “as slow as C does” will be fast enough.
 
 
 
@@ -33,6 +33,6 @@ This repo can be added to your `Cargo.toml` file directly.
 ```yaml
 [dependencies.sso]
 git = "https://github.com/bwoods/immutable-sso"
-tag = "0.3.3"
+tag = "0.3.4"
 ```
 
