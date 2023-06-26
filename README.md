@@ -36,3 +36,10 @@ git = "https://github.com/bwoods/immutable-sso"
 tag = "0.3.4"
 ```
 
+
+
+## License
+
+Distributed under the terms of both the MIT license and the Apache License (Version 2.0)
+
+See [LICENSE-APACHE](LICENSE-APACHE.md) and [LICENSE-MIT](LICENSE-MIT.md) for details.
