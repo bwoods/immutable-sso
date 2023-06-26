@@ -1,0 +1,10 @@
+[package]
+name = "sso"
+version = "0.3.3"
+edition = "2021"
+
+[dependencies]
+
+[dev-dependencies]
+quickcheck = "1.0.3"
+quickcheck_macros = "1.0.0"
