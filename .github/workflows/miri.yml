@@ -5,8 +5,7 @@ on:
     branches: [ "develop" ]
   push:
     paths:
-      - src/**.rs
-      - .github/workflows/miri.yml
+      - "**/*.rs"
 
 env:
   CARGO_TERM_COLOR: always
