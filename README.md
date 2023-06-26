@@ -8,7 +8,7 @@ Bot [TinyVec](https://crates.io/crates/tinyvec) and [SmallVec](https://crates.io
 
 Strings that are too large to store inline are stored on the heap, as a `CString`, rather than using a `String` or `Vec` . As such, embedded NUL characters are not allowed in the strings that are to be stored. A  `std::ffi::NulError` will be returned if an attempt is made to construct an `sso::Storage` form an unsupported `str`.
 
-```rust
+```rust, ignore
 pub fn from_str(str: &str) -> Result<Storage, NulError>
 ```
 
