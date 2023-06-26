@@ -5,7 +5,7 @@ on:
     branches: [ "develop" ]
   push:
     paths:
-      - src/**.rc
+      - src/**.rs
       - .github/workflows/miri.yml
 
 jobs:
