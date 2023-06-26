@@ -1,5 +1,8 @@
 use std::ffi::{CStr, CString, NulError};
 
+#[cfg(test)]
+mod test;
+
 const ALLOCATION: usize = 16;
 const CAPACITY: usize = ALLOCATION - 1; // for the tag byte
 
@@ -17,7 +20,7 @@ impl Storage {
     /// This constructor sets up the preconditions that all other `unsafe` code
     /// relies on.
     ///
-    /// - Strings larger than CAPACITY are stored on the heap as a [`CString`],
+    /// - Strings larger than `CAPACITY` are stored on the heap as a [`CString`],
     /// - otherwise, its bytes are copied inline to an array
     ///
     /// Inlined string store their length in the first bytes, whereas CStrings store a
@@ -93,7 +96,7 @@ impl Drop for Storage {
 }
 
 impl Default for Storage {
-    /// Constructs and empty string
+    /// Constructs an empty string
     fn default() -> Self {
         Storage {
             bytes: [0; ALLOCATION],
