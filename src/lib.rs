@@ -2,17 +2,13 @@
 #![allow(clippy::bool_comparison)]
 #![doc = include_str!("../README.md")]
 
-pub use sso::*;
-
 mod sso;
+pub use crate::sso::Storage;
 
 #[cfg(test)]
 mod tests {
-    use std::ffi::NulError;
-
-    use quickcheck_macros::quickcheck;
-
     use super::*;
+    use std::ffi::NulError;
 
     #[test]
     fn size_assumptions() {
@@ -47,6 +43,8 @@ mod tests {
         assert_eq!(result, "");
         Ok(())
     }
+
+    use quickcheck_macros::quickcheck;
 
     #[quickcheck]
     fn sso_round_trip(mut string: String) -> Result<(), NulError> {
