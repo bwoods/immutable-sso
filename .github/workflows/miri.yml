@@ -1,13 +1,12 @@
 name: Miri
 # https://github.com/actions-rs/toolchain
 on:
-  push:
-    branches: [ "develop" ]
   pull_request:
     branches: [ "develop" ]
-
-env:
-  CARGO_TERM_COLOR: always
+  push:
+    paths:
+      - src/**.rc
+      - .github/workflows/miri.yml
 
 jobs:
   check:
