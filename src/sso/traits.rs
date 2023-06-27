@@ -2,6 +2,7 @@ use crate::Storage;
 
 use std::cmp::Ordering;
 use std::hash::{Hash, Hasher};
+use std::ops::Deref;
 
 impl PartialOrd for Storage {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
@@ -30,5 +31,24 @@ impl Eq for Storage {}
 impl Hash for Storage {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.as_str().hash(state)
+    }
+}
+
+impl Default for Storage {
+    /// Constructs an empty string.
+    #[inline]
+    fn default() -> Self {
+        Storage {
+            bytes: Default::default(),
+        }
+    }
+}
+
+impl Deref for Storage {
+    type Target = str;
+
+    #[inline]
+    fn deref(&self) -> &str {
+        self.as_str()
     }
 }

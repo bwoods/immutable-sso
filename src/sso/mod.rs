@@ -1,8 +1,7 @@
 use std::ffi::{CStr, CString, NulError};
-use std::ops::Deref;
 
-mod cmp;
-pub use cmp::*;
+mod traits;
+pub use traits::*;
 
 #[cfg(test)]
 mod test;
@@ -22,13 +21,7 @@ impl Storage {
     /// # Safety
     ///
     /// This constructor sets up the preconditions that all other `unsafe` code
-    /// relies on.
-    ///
-    /// - Strings larger than `CAPACITY` are stored on the heap as a [`CString`],
-    /// - otherwise, its bytes are copied inline to an array
-    ///
-    /// Inlined string store their length in the first bytes, whereas CStrings store a
-    /// (larger) value, tagging them as such.
+    /// relies on,
     ///
     /// # Errors
     ///
@@ -62,7 +55,8 @@ impl Storage {
 
     /// # Safety
     ///
-    /// `is_heap` must be correct for the appropriate pointer to be derived,
+    /// The [`Storage`] must have been created with [`Storage::from_str()`]
+    /// to guarantee that is is correctly tagged as `is_heap` or `is_inline`.
     ///
     #[inline]
     pub fn as_str(&self) -> &str {
@@ -77,11 +71,13 @@ impl Storage {
     }
 
     #[inline]
+    /// Returns whether elements are on heap.
     pub fn is_heap(&self) -> bool {
         unsafe { self.bytes[0] == ALLOCATION as u8 }
     }
 
     #[inline]
+    /// Returns whether elements are held inline.
     pub fn is_inline(&self) -> bool {
         self.is_heap() == false
     }
@@ -90,8 +86,8 @@ impl Storage {
 impl Drop for Storage {
     /// # Safety
     ///
-    /// If the `is_heap()` is true, the pointer in `words[1]` must have been allocated
-    /// with [`CString::into_raw()`]
+    /// The [`Storage`] must have been created with [`Storage::from_str()`]
+    /// to guarantee that is is correctly tagged as `is_heap` or `is_inline`.    
     ///
     fn drop(&mut self) {
         unsafe {
@@ -99,24 +95,5 @@ impl Drop for Storage {
                 let _ = CString::from_raw(self.words[1] as *mut i8);
             }
         }
-    }
-}
-
-impl Default for Storage {
-    /// Constructs an empty string
-    #[inline]
-    fn default() -> Self {
-        Storage {
-            bytes: [0; ALLOCATION],
-        }
-    }
-}
-
-impl Deref for Storage {
-    type Target = str;
-
-    #[inline]
-    fn deref(&self) -> &str {
-        self.as_str()
     }
 }

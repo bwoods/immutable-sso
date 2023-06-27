@@ -2,12 +2,12 @@ use super::*;
 use std::ffi::NulError;
 
 #[test]
-fn size_assumptions() {
+fn assumptions() {
     assert_eq!(std::mem::size_of::<Storage>(), 16);
 }
 
 #[test]
-fn threshold_size_string() -> Result<(), NulError> {
+fn boundary_strings() -> Result<(), NulError> {
     let storage = Storage::from_str("123456789012345")?;
     assert!(storage.is_inline());
 
@@ -36,7 +36,7 @@ fn empty_string_succeeds() -> Result<(), NulError> {
 }
 
 #[test]
-fn test_deref() -> Result<(), NulError> {
+fn deref() -> Result<(), NulError> {
     let a = Storage::from_str("A")?;
     let b = Storage::from_str("B")?;
 
@@ -45,7 +45,7 @@ fn test_deref() -> Result<(), NulError> {
 }
 
 #[test]
-fn test_cmp() -> Result<(), NulError> {
+fn cmp() -> Result<(), NulError> {
     let a = Storage::from_str("A")?;
     let b = Storage::from_str("B")?;
 
@@ -59,7 +59,7 @@ fn test_cmp() -> Result<(), NulError> {
 use quickcheck_macros::quickcheck;
 
 #[quickcheck]
-fn sso_round_trip(mut string: String) -> Result<(), NulError> {
+fn property_testing(mut string: String) -> Result<(), NulError> {
     string.retain(|ch| ch != '\0'); // NULs are a different test…
 
     let storage = Storage::from_str(string.as_str())?;
