@@ -20,7 +20,7 @@ Strings that are too large to store inline are stored on the heap as a `CString`
 
 The basic tradeoff inherent in the design is the use of a NUL sentinel value to compute the length of (long) strings vs. the inline space that would be required to explicitly store it.
 
-Using this crate is implicitly stating that handling long strings “as slow as C does” will be fast enough. Or that short strings are so prevalent that the higher overhead for longer string will never come to dominate performance.
+Using this crate is implicitly stating that handling long strings “as slow as C does” will be fast enough. Or that short strings are so prevalent that the higher overhead for longer strings will never come to dominate performance.
 
 
 
@@ -30,7 +30,7 @@ This crate uses `unsafe` as it use a Rust [`union`](https://doc.rust-lang.org/re
 
 1. The code is purposefully kept [small/simple](src/sso/mod.rs) to simplify manual auditing.
 2. [Property testing](https://github.com/BurntSushi/quickcheck#readme) is done to ensure that it works on a large variety of strings.
-3. Every test is run under [Miri](https://github.com/rust-lang/miri#readme) [on every push](https://github.com/bwoods/immutable-sso/actions) to help check the vanity of the `unsafe` code.
+3. Every test is run under [Miri](https://github.com/rust-lang/miri#readme) [on every push](https://github.com/bwoods/immutable-sso/actions) to help check the sanity of the `unsafe` code.
 
 ​    ![](https://github.com/bwoods//immutable-sso/actions/workflows/miri.yml/badge.svg)
 
