@@ -13,7 +13,6 @@ fn boundary_strings() -> Result<(), NulError> {
 
     let storage = Storage::from_str("1234567890123456")?;
     assert!(storage.is_heap());
-
     Ok(())
 }
 

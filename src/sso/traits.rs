@@ -20,10 +20,6 @@ impl PartialEq for Storage {
     fn eq(&self, other: &Self) -> bool {
         self.as_str().eq(other.as_str())
     }
-
-    fn ne(&self, other: &Self) -> bool {
-        self.as_str().ne(other.as_str())
-    }
 }
 
 impl Eq for Storage {}
