@@ -5,6 +5,7 @@ on:
     branches: [ "develop" ]
   push:
     paths:
+      - ".github/workflows/miri.yml"
       - "**/*.rs"
 
 env:
