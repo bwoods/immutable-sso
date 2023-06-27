@@ -2,7 +2,7 @@
 
 A  “string container” that starts hold short string inline, but will fallback to storing longer strings on the heap.
 
-Both [TinyVec](https://crates.io/crates/tinyvec) and [SmallVec](https://crates.io/crates/smallvec) have the same minimum size as a `Vac` — 24 bytes on 64-bit platforms. This implementation manages to get that down to 16 bytes. For a large number of strings, this savings adds up. Not just in memory usage, but **cache utilization** as well.
+Both [TinyVec](https://crates.io/crates/tinyvec) and [SmallVec](https://crates.io/crates/smallvec) have the same minimum size as a `Vec` — 24 bytes on 64-bit platforms. This implementation manages to get that down to 16 bytes. For a large number of strings, this savings adds up. Not just in memory usage, but **cache utilization** as well.
 
 The capabilities of the crate are purposely kept small. The main use for this type of element is for keys in other data structures, so the only traits defined for the type are those that are useful for that purpose.
 
@@ -24,7 +24,7 @@ Using this crate is implicitly stating that handling long strings “as slow as 
 
 
 
-## Safety
+## Safety 
 
 This crate uses `unsafe` as it use a Rust [`union`](https://doc.rust-lang.org/reference/items/unions.html) internally to lower the overhead. However
 
@@ -32,7 +32,7 @@ This crate uses `unsafe` as it use a Rust [`union`](https://doc.rust-lang.org/re
 2. [Property testing](https://github.com/BurntSushi/quickcheck#readme) is done to ensure that it works on a large variety of strings.
 3. Every test is run under [Miri](https://github.com/rust-lang/miri#readme) [on every push](https://github.com/bwoods/immutable-sso/actions) to help check the vanity of the `unsafe` code.
 
-![](https://github.com/bwoods//immutable-sso/actions/workflows/miri.yml/badge.svg)
+​    ![](https://github.com/bwoods//immutable-sso/actions/workflows/miri.yml/badge.svg)
 
 
 
