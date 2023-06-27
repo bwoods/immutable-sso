@@ -1,4 +1,3 @@
-
 use super::*;
 use std::ffi::NulError;
 
@@ -33,6 +32,27 @@ fn empty_string_succeeds() -> Result<(), NulError> {
     let result = storage.as_str();
 
     assert_eq!(result, "");
+    Ok(())
+}
+
+#[test]
+fn test_deref() -> Result<(), NulError> {
+    let a = Storage::from_str("A")?;
+    let b = Storage::from_str("B")?;
+
+    assert_ne!(a.to_owned(), b.to_owned());
+    Ok(())
+}
+
+#[test]
+fn test_cmp() -> Result<(), NulError> {
+    let a = Storage::from_str("A")?;
+    let b = Storage::from_str("B")?;
+
+    assert!(a < b);
+    assert!(b > a);
+    assert!(a == a);
+    assert!(a != b);
     Ok(())
 }
 

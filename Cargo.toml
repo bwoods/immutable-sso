@@ -3,7 +3,15 @@ name = "sso"
 version = "0.3.3"
 edition = "2021"
 
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/bwoods/immutable-sso"
+description = "A (smaller) Small String Optimization implementation for immutable strings."
+keywords = [ "small", "string", "stack" ]
+categories = [ "data-structures" ]
+readme = "README.md"
+
 [dependencies]
+# alloc
 
 [dev-dependencies]
 quickcheck = "1.0.3"

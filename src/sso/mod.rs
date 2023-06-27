@@ -1,4 +1,8 @@
 use std::ffi::{CStr, CString, NulError};
+use std::ops::Deref;
+
+mod cmp;
+pub use cmp::*;
 
 #[cfg(test)]
 mod test;
@@ -60,6 +64,7 @@ impl Storage {
     ///
     /// `is_heap` must be correct for the appropriate pointer to be derived,
     ///
+    #[inline]
     pub fn as_str(&self) -> &str {
         unsafe {
             if self.is_heap() {
@@ -71,10 +76,12 @@ impl Storage {
         }
     }
 
+    #[inline]
     pub fn is_heap(&self) -> bool {
         unsafe { self.bytes[0] == ALLOCATION as u8 }
     }
 
+    #[inline]
     pub fn is_inline(&self) -> bool {
         self.is_heap() == false
     }
@@ -83,7 +90,7 @@ impl Storage {
 impl Drop for Storage {
     /// # Safety
     ///
-    /// If the [`is_heap`] is true, the pointer in `words[1]` must have been allocated
+    /// If the `is_heap()` is true, the pointer in `words[1]` must have been allocated
     /// with [`CString::into_raw()`]
     ///
     fn drop(&mut self) {
@@ -97,9 +104,19 @@ impl Drop for Storage {
 
 impl Default for Storage {
     /// Constructs an empty string
+    #[inline]
     fn default() -> Self {
         Storage {
             bytes: [0; ALLOCATION],
         }
+    }
+}
+
+impl Deref for Storage {
+    type Target = str;
+
+    #[inline]
+    fn deref(&self) -> &str {
+        self.as_str()
     }
 }
