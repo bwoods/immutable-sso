@@ -1,5 +1,5 @@
 name: Miri
-# https://github.com/actions-rs/toolchain
+# https://github.com/dtolnay/rust-toolchain
 on:
   pull_request:
     branches: [ "develop" ]
@@ -15,15 +15,8 @@ jobs:
     name: Miri
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install latest nightly
-        uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@nightly
         with:
-            toolchain: nightly
-            override: true
-            components: miri
-      - name: Run cargo miri test
-        uses: actions-rs/cargo@v1
-        with:
-            command: miri
-            args: test
+          components: miri
+      - run: cargo miri test
